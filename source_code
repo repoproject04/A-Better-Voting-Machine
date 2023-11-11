@@ -1,0 +1,157 @@
+def election_type():
+    print("Better Voting Machine 1.0")
+    print("Please select the type of election:")
+    print("1. General Election")
+    print("2. Congressional/Parliamentary Election")
+    print("3. Referendum")
+
+    choice = input("Enter the number of your choice: ")
+
+    if choice == "1":
+        general_election()
+    elif choice == "2":
+        congressional_election()
+    elif choice == "3":
+        referendum()
+    else:
+        print("Invalid choice. Please select a valid option.")
+        
+def general_election():
+    print("You are in the General Election module")
+    print()
+    ge_regvote = int(input("Enter the number of registered voters: "))
+    ge_turnout = float(input("Enter the expected voter turnout: "))
+    ge_expected_turnout = int(ge_regvote * ge_turnout)
+    ge_close_polls = "EOP2023"
+
+    candidate1_votes = 0
+    candidate2_votes = 0
+
+    while True:
+        print("Enter 1 for Candidate 1")
+        print("Enter 2 for Candidate 2")
+        voter_choice = input("Vote: ")
+        if voter_choice == '1':
+            candidate1_votes += 1
+        elif voter_choice == '2':
+            candidate2_votes += 1
+        elif voter_choice == ge_close_polls:
+            break
+        else:
+            print("Invalid choice. Please choose 1 or 2")
+
+    actual_turnout = candidate1_votes + candidate2_votes
+    if actual_turnout > ge_expected_turnout * 1.5:
+        print("Abnormally high voter turnout. Investigate potential fraud.")
+    elif actual_turnout < ge_expected_turnout * 0.5:
+        print("Voter turnout is less than half the expected. Investigate potential voter suppression.")
+
+    print()
+    print("Election Results:")
+    print(f"Candidate 1: {candidate1_votes} votes")
+    print(f"Candidate 2: {candidate2_votes} votes")
+    print()
+
+    if candidate1_votes > candidate2_votes:
+        print("Candidate 1 has been declared the winner.")
+    else:
+        print("Candidate 2 has been declared the winner.")
+        
+def congressional_election():
+    print("You are in the Congressional/Parliamentary Election module.")
+    print()
+    total_seats = int(input("Enter the total number of seats in your congress/parliament: "))
+    num_parties = int(input("Enter the number of political parties: "))
+
+    party_names = []
+    for i in range(num_parties):
+        party_name = input(f"Enter the name of political party {i + 1}: ")
+        party_names.append(party_name)
+
+    conpar_regvote = int(input("Enter the number of registered voters: "))
+    conpar_turnout = float(input("Enter the expected voter turnout (as a decimal): "))
+    conpar_expected_turnout = int(conpar_regvote * conpar_turnout)
+    conpar_close_polls = "EOP2023"
+
+    party_votes = [0] * num_parties
+
+    while True:
+        for i, party_name in enumerate(party_names):
+            print(f"Enter {i + 1} for {party_name}")
+        voter_choice = input("Vote: ")
+
+        if voter_choice == conpar_close_polls:
+            break
+        try:
+            choice = int(voter_choice)
+            if 1 <= choice <= num_parties:
+                party_votes[choice - 1] += 1
+            else:
+                print("Invalid choice. Please choose a party number.")
+        except ValueError:
+            print("Invalid choice. Please choose a party number.")
+
+    actual_turnout = sum(party_votes)
+
+    if actual_turnout > conpar_expected_turnout * 1.5:
+        print("Abnormally high voter turnout. Investigate potential fraud.")
+    elif actual_turnout < conpar_expected_turnout * 0.5:
+        print("Voter turnout is less than half the expected. Investigate potential voter suppression.")
+
+    winning_party_index = party_votes.index(max(party_votes))
+
+    seats_per_party = [0] * num_parties
+    seats_per_party[winning_party_index] = total_seats
+
+    print("Election Results:")
+    for i in range(num_parties):
+        print(f"{party_names[i]}: {party_votes[i]} votes, {seats_per_party[i]} seats")
+        
+def referendum():
+    print("You are in the Referendum module.")
+    print()
+    ref_regvote = int(input("Enter the number of registered voters: "))
+    ref_turnout = float(input("Enter the expected voter turnout: "))
+    ref_expected_turnout = int(ref_regvote * ref_turnout)
+    ref_close_polls = "EOP2023"
+
+    print()
+    print("Enter the referendum below: ")
+    ref_input = input()
+    print(ref_input)
+
+    yes_votes = 0
+    no_votes = 0
+
+    while True:
+        print("Enter 1 for Yes")
+        print("Enter 2 for No")
+        voter_choice = input("Vote: ")
+        if voter_choice == '1':
+            yes_votes += 1
+        elif voter_choice == '2':
+            no_votes += 1
+        elif voter_choice == ref_close_polls:
+            break
+        else:
+            print("Invalid choice. Please choose 1 or 2")
+
+    actual_turnout = yes_votes + no_votes
+    if actual_turnout > ref_expected_turnout * 1.5:
+        print("Abnormally high voter turnout. Investigate potential fraud.")
+    elif actual_turnout < ref_expected_turnout * 0.5:
+        print("Voter turnout is less than half the expected. Investigate potential voter suppression.")
+
+    print()
+    print("Referendum Results:")
+    print(f"Yes: {yes_votes} votes")
+    print(f"No: {no_votes} votes")
+    print()
+
+    if yes_votes > no_votes:
+        print("The new legislation shall be implemented.")
+    else:
+        print("The new legislation shall not be implemented.")
+
+if __name__ == "__main__":
+    election_type()
