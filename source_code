@@ -100,10 +100,11 @@ def congressional_election():
     elif actual_turnout < conpar_expected_turnout * 0.5:
         print("Voter turnout is less than half the expected. Investigate potential voter suppression.")
 
-    winning_party_index = party_votes.index(max(party_votes))
-
     seats_per_party = [0] * num_parties
-    seats_per_party[winning_party_index] = total_seats
+    for seat in range(total_seats):
+        scores = [votes / (seats + 1) for votes, seats in zip(party_votes, seats_per_party)]
+        winning_party_index = scores.index(max(scores))
+        seats_per_party[winning_party_index] += 1
 
     print("Election Results:")
     for i in range(num_parties):
