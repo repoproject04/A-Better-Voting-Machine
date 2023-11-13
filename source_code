@@ -54,6 +54,8 @@ def general_election():
 
     if candidate1_votes > candidate2_votes:
         print("Candidate 1 has been declared the winner.")
+    elif candidate1_votes == candidate2_votes:
+        print("No winner has been declared.")
     else:
         print("Candidate 2 has been declared the winner.")
         
@@ -150,6 +152,10 @@ def referendum():
 
     if yes_votes > no_votes:
         print("The new legislation shall be implemented.")
+    elif yes_votes = no_votes:
+        print("The proposed legislation will remain null and void until next referendum.")
+    elif candidate1_votes == candidate2_votes:
+        print("No winner has been declared.")
     else:
         print("The new legislation shall not be implemented.")
 
