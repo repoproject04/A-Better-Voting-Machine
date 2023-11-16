@@ -153,10 +153,8 @@ def referendum():
 
     if yes_votes > no_votes:
         print("The new legislation shall be implemented.")
-    elif yes_votes = no_votes:
+    elif yes_votes == no_votes:
         print("The proposed legislation will remain null and void until next referendum.")
-    elif candidate1_votes == candidate2_votes:
-        print("No winner has been declared.")
     else:
         print("The new legislation shall not be implemented.")
 
